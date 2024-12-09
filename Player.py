@@ -18,6 +18,10 @@ class player:
             self.box.move_ip(0,-6)
         if keys[pygame.K_DOWN]:
             self.box.move_ip(0,6)
+    
+    def die(self):
+        # self.deathSound.play()
+        pass
 
     def render(self, window: pygame.Surface):
         window.blit(self.sprite, self.box)
