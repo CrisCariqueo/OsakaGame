@@ -1,4 +1,5 @@
 import pygame
+import json
 import SataAndagi
 import Player
 from Killer import killer
@@ -10,11 +11,11 @@ from Killer import killer
 
 
 def play():
-    global jugando
-    while jugando:  # Bucle principal del juego
+    global playing
+    while playing:  # Bucle principal del juego
         for event in pygame.event.get():    # Comprobamos los eventos
             if event.type == pygame.QUIT:   # Comprobamos si se ha pulsado el botón de cierre de la ventana
-                jugando = False
+                playing = False
         
         osaka.handle_keys()
         render()
@@ -24,7 +25,7 @@ def play():
         killer01.move()
         
         if SataAndagi.sound.get_num_channels() > 10:
-            jugando = False
+            playing = False
         
         pygame.time.Clock().tick(60)    # Controlamos la frecuencia de refresco (FPS)
 
@@ -47,8 +48,8 @@ def death():
     finish_game()
 
 def finish_game():
-    global jugando
-    jugando = False
+    global playing
+    playing = False
     print("Sata Catcher Over")
     
 
@@ -56,25 +57,27 @@ def finish_game():
 pygame.init()
 window = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Sata Catcher")
+sata_data = json.load(open("resources/data/sataCatcher_data.json"))
 
-jugando = True
+playing = True
 
 # osaka
 osakaSprite = "./resources/sprite/kasuga-240x240.jpg"
 osakaDeathSound = "./resources/sound/Flashbang sfx.mp3"
 
-osaka = Player.player(osakaSprite, (100,100), [0,0], osakaDeathSound)
+osakaInitialPos = sata_data['osaka_pos']
+osaka = Player.player(osakaSprite, 
+                      (osakaInitialPos[0], osakaInitialPos[1]), 
+                      [0,0], 
+                      osakaDeathSound)
 
 # sataAndagi
 sataSprite = "./resources/sprite/sata_andagi-50x50.png"
 
-sata01 = SataAndagi.sata(sataSprite, (400,400))
-sata02 = SataAndagi.sata(sataSprite, (500,400))
-sata03 = SataAndagi.sata(sataSprite, (600,400))
-
-SataAndagi.add_sata(sata01)
-SataAndagi.add_sata(sata02)
-SataAndagi.add_sata(sata03)
+for i in sata_data['sata_andagi_pos']:
+    x, y = sata_data['sata_andagi_pos'][i]
+    sata = SataAndagi.sata(sataSprite, (x, y))
+    SataAndagi.add_sata(sata)
 
 # killer
 killerSprite = "./resources/sprite/tiger-150x99.png"
