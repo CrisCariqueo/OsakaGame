@@ -18,10 +18,16 @@ class player:
             self.box.move_ip(0,-6)
         if keys[pygame.K_DOWN]:
             self.box.move_ip(0,6)
-    
+
     def die(self):
         # self.deathSound.play()
         pass
 
     def render(self, window: pygame.Surface):
         window.blit(self.sprite, self.box)
+
+    def pos_render(self, window: pygame.Surface):
+        x, y = self.box.x, self.box.y
+        font = pygame.font.Font(None, 36)
+        text = font.render(f"coords: x:{x}, y:{y}", 1, (255, 255, 255))
+        window.blit(text, (550, 10))

@@ -34,6 +34,7 @@ def render():
     osaka.render(window)
     SataAndagi.sata_render(window)
     SataAndagi.sataCounter_render(window)
+    osaka.pos_render(window)
 
     killer01.render(window)
     
@@ -42,7 +43,7 @@ def render():
 def handle_collisions():
     if killer01.check_kill(osaka):
         death()
-        
+
 def death():
     osaka.die()
     finish_game()
@@ -60,6 +61,9 @@ pygame.display.set_caption("Sata Catcher")
 sata_data = json.load(open("resources/data/sataCatcher_data.json"))
 
 playing = True
+
+# map
+
 
 # osaka
 osakaSprite = "./resources/sprite/kasuga-240x240.jpg"
