@@ -1,0 +1,678 @@
+{"frames": {
+
+"arrow.png":
+{
+	"frame": {"x":10,"y":0,"w":32,"h":23},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":23},
+	"sourceSize": {"w":32,"h":23},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"AZUBALL-128x80.png":
+{
+	"frame": {"x":74,"y":0,"w":128,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":80},
+	"sourceSize": {"w":128,"h":80},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"AZUBALL-204x128.png":
+{
+	"frame": {"x":1520,"y":1198,"w":204,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":128},
+	"sourceSize": {"w":204,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"ballx32.png":
+{
+	"frame": {"x":42,"y":0,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_ball.png":
+{
+	"frame": {"x":202,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_ball_throw.png":
+{
+	"frame": {"x":330,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_hit.png":
+{
+	"frame": {"x":458,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_idle.png":
+{
+	"frame": {"x":586,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_imsane.png":
+{
+	"frame": {"x":714,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_jorato.png":
+{
+	"frame": {"x":842,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_pluch.png":
+{
+	"frame": {"x":970,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_sad.png":
+{
+	"frame": {"x":1098,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo/chiyo_scared.png":
+{
+	"frame": {"x":1226,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_0.png":
+{
+	"frame": {"x":1152,"y":384,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_1.png":
+{
+	"frame": {"x":1342,"y":384,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_2.png":
+{
+	"frame": {"x":1532,"y":384,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_3.png":
+{
+	"frame": {"x":0,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_4.png":
+{
+	"frame": {"x":190,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_5.png":
+{
+	"frame": {"x":380,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_ball_0.png":
+{
+	"frame": {"x":570,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_ball_1.png":
+{
+	"frame": {"x":760,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_ball_2.png":
+{
+	"frame": {"x":950,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"chiyo_ball_3.png":
+{
+	"frame": {"x":1140,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"net.png":
+{
+	"frame": {"x":0,"y":0,"w":10,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":10,"h":128},
+	"sourceSize": {"w":10,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_00.png":
+{
+	"frame": {"x":1354,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_01.png":
+{
+	"frame": {"x":1482,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_02.png":
+{
+	"frame": {"x":1610,"y":0,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_03.png":
+{
+	"frame": {"x":0,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_04.png":
+{
+	"frame": {"x":128,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_05.png":
+{
+	"frame": {"x":256,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_06.png":
+{
+	"frame": {"x":384,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_07.png":
+{
+	"frame": {"x":512,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_08.png":
+{
+	"frame": {"x":640,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_09.png":
+{
+	"frame": {"x":768,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_10.png":
+{
+	"frame": {"x":896,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_11.png":
+{
+	"frame": {"x":1024,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_12.png":
+{
+	"frame": {"x":1152,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_13.png":
+{
+	"frame": {"x":1280,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/hapi/hapi_14.png":
+{
+	"frame": {"x":1408,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_1000satas_sight.png":
+{
+	"frame": {"x":1536,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_baja_beam.png":
+{
+	"frame": {"x":1664,"y":128,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_ball.png":
+{
+	"frame": {"x":0,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_ball_throw.png":
+{
+	"frame": {"x":128,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_fuhrer.png":
+{
+	"frame": {"x":256,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_hit.png":
+{
+	"frame": {"x":384,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_idle.png":
+{
+	"frame": {"x":512,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_tysm_face.png":
+{
+	"frame": {"x":640,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_wah.png":
+{
+	"frame": {"x":768,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_00.png":
+{
+	"frame": {"x":896,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_01.png":
+{
+	"frame": {"x":1024,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_02.png":
+{
+	"frame": {"x":1152,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_03.png":
+{
+	"frame": {"x":1280,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_04.png":
+{
+	"frame": {"x":1408,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_05.png":
+{
+	"frame": {"x":1536,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_06.png":
+{
+	"frame": {"x":1664,"y":256,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_07.png":
+{
+	"frame": {"x":0,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_08.png":
+{
+	"frame": {"x":128,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_09.png":
+{
+	"frame": {"x":256,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_10.png":
+{
+	"frame": {"x":384,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_11.png":
+{
+	"frame": {"x":512,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_12.png":
+{
+	"frame": {"x":640,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_13.png":
+{
+	"frame": {"x":768,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_14.png":
+{
+	"frame": {"x":896,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka/osaka_waltah/osaka_waltah_15.png":
+{
+	"frame": {"x":1024,"y":384,"w":128,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
+	"sourceSize": {"w":128,"h":128},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_0.png":
+{
+	"frame": {"x":1330,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_1.png":
+{
+	"frame": {"x":1520,"y":791,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_2.png":
+{
+	"frame": {"x":0,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_3.png":
+{
+	"frame": {"x":190,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_4.png":
+{
+	"frame": {"x":380,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_5.png":
+{
+	"frame": {"x":570,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_ball_0.png":
+{
+	"frame": {"x":760,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_ball_1.png":
+{
+	"frame": {"x":950,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_ball_2.png":
+{
+	"frame": {"x":1140,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"osaka_ball_3.png":
+{
+	"frame": {"x":1330,"y":1198,"w":190,"h":407},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":190,"h":407},
+	"sourceSize": {"w":190,"h":407},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "azuball_spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":1792,"h":1605},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:28e282a8f37b887f72b81670f3f9003c:653b7bf3b297ada590037c7b4fcb88ce:b6f8e3691d021938c7f6c2bd52f0312a$"
+}
+}
