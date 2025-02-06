@@ -1,5 +1,5 @@
 import pygame
-from resources.sprite.spritesheet import spritesheet
+from resources.sprite.spritesheet import Spritesheet
 
 ############# LOAD UP BASIC WINDOW #############
 pygame.init()
@@ -9,7 +9,7 @@ window = pygame.display.set_mode((DISPLAY_W, DISPLAY_H))
 running = True
 ################################################
 
-my_spritesheet = spritesheet("resources/sprite/azuball_spritesheet.png")
+my_spritesheet = Spritesheet("resources/sprite/azuball_spritesheet.png")
 # osaka = my_spritesheet.parse_sprite("osaka_1.png")
 osaka = [my_spritesheet.parse_sprite(f"osaka_{i}.png") for i in range(0, 6)]
 chiyo = [my_spritesheet.parse_sprite(f"chiyo_{i}.png") for i in range(0, 6)]
