@@ -13,8 +13,8 @@ my_spritesheet = Spritesheet("resources/sprite/azuball_spritesheet.png")
 # osaka = my_spritesheet.parse_sprite("osaka_1.png")
 osaka = [my_spritesheet.parse_sprite(f"osaka_{i}.png") for i in range(0, 6)]
 chiyo = [my_spritesheet.parse_sprite(f"chiyo_{i}.png") for i in range(0, 6)]
-referi = [my_spritesheet.parse_sprite(f"haroeberinyanhauaruyufainsankyuehaiwishuaiwasuaberdmusumegaamerikaniyusunodesu_{i}.png") for i in range(0, 2)]
-referi.append(pygame.transform.flip(referi[1], True, False))
+referee = [my_spritesheet.parse_sprite(f"haroeberinyanhauaruyufainsankyuehaiwishuaiwasuaberdmusumegaamerikaniyusunodesu_{i}.png") for i in range(0, 2)]
+referee.append(pygame.transform.flip(referee[1], True, False))
 
 index = 0
 ref_index = 0
@@ -28,14 +28,14 @@ while running:
             ############# UPDATE SPRITE IF SPACE IS PRESSED #############
             if event.key == pygame.K_SPACE:
                 index = (index + 1) % len(osaka)
-                ref_index = (ref_index + 1) % len(referi)
+                ref_index = (ref_index + 1) % len(referee)
 
 
     ############# UPDATE WINDOW AND DISPLAY #############
     canvas.fill((255, 255, 255))
     canvas.blit(osaka[index], (100, DISPLAY_H - 407))
     canvas.blit(chiyo[index], (DISPLAY_W - 290, DISPLAY_H - 407))
-    if ref_index == 2: canvas.blit(referi[ref_index], (DISPLAY_W/2-90, 100))
-    else:              canvas.blit(referi[ref_index], (DISPLAY_W/2-150, 100))
+    if ref_index == 2: canvas.blit(referee[ref_index], (DISPLAY_W/2-90, 100))
+    else:              canvas.blit(referee[ref_index], (DISPLAY_W/2-150, 100))
     window.blit(canvas, (0, 0))
     pygame.display.update()
