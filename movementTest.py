@@ -16,6 +16,11 @@ my_spritesheet = Spritesheet("resources/sprite/azuball_spritesheet.png")
 player = Player()
 player.position.x, player.position.y = 100, DISPLAY_H
 
+############# LOAD BACKGROUND #############
+background_img = pygame.image.load("resources/sprite/azuball_field-800x600.png").convert()
+background = pygame.Surface((800, 600))
+background.blit(background_img, (0, 0))
+
 ############# MAIN GAME LOOP #############
 while running:
     dt = clock.tick(60) * 0.001 * TARGET_FPS
@@ -49,6 +54,7 @@ while running:
     
     ############# UPDATE WINDOW AND DISPLAY #############
     canvas.fill((255, 255, 255))
+    canvas.blit(background, (133, 0))
     player.draw(canvas)
 
     ############# DISPLAY PLAYER INFO #############
