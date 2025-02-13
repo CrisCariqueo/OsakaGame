@@ -2,12 +2,14 @@ import pygame
 from resources.sprite.spritesheet import Spritesheet
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, spriteName: str):
+    def __init__(self, spriteName: str, keys: tuple[pygame.event.Event]):
         pygame.sprite.Sprite.__init__(self)
         self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite(spriteName)
         self.rect = self.image.get_rect()
         
-        self.LEFT_KEY, self.RIGHT_KEY = False, False
+        self.LEFT_KEY, self.RIGHT_KEY, self.UP_KEY = keys
+        
+        self.LEFT_KEY_PRESSED, self.RIGHT_KEY_PRESSED = False, False
         self.is_jumping, self.on_ground = False, False
         
         self.gravity, self.friction = 1.5, -0.07
@@ -24,9 +26,9 @@ class Player(pygame.sprite.Sprite):
 
     def horizontal_movement(self, dt):
         self.acceleration.x = 0
-        if self.LEFT_KEY:
+        if self.LEFT_KEY_PRESSED:
             self.acceleration.x -= 1
-        elif self.RIGHT_KEY:
+        elif self.RIGHT_KEY_PRESSED:
             self.acceleration.x += 1
         self.acceleration.x += self.velocity.x * self.friction
         self.velocity.x += self.acceleration.x * dt

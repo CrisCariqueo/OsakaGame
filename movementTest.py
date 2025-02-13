@@ -31,18 +31,18 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player.LEFT_KEY = True
+                player.LEFT_KEY_PRESSED = True
             elif event.key == pygame.K_RIGHT:
-                player.RIGHT_KEY = True
+                player.RIGHT_KEY_PRESSED = True
             elif event.key == pygame.K_UP:
                 player.jump()
         
         
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                player.LEFT_KEY = False
+                player.LEFT_KEY_PRESSED = False
             elif event.key == pygame.K_RIGHT:
-                player.RIGHT_KEY = False
+                player.RIGHT_KEY_PRESSED = False
             elif event.key == pygame.K_UP:
                 if player.is_jumping:
                     player.velocity.y *= 0.5 
