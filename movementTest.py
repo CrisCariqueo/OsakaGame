@@ -13,7 +13,7 @@ TARGET_FPS = 60
 
 ############# LOAD PLAYER AND SPRITESHEET #############
 my_spritesheet = Spritesheet("resources/sprite/azuball_spritesheet.png")
-player = Player()
+player = Player("osaka_0.png")
 player.position.x, player.position.y = 100, DISPLAY_H
 
 ############# LOAD BACKGROUND #############

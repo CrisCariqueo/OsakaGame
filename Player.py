@@ -2,14 +2,17 @@ import pygame
 from resources.sprite.spritesheet import Spritesheet
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, spriteName: str):
         pygame.sprite.Sprite.__init__(self)
-        self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite("osaka_0.png")
+        self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite(spriteName)
         self.rect = self.image.get_rect()
+        
         self.LEFT_KEY, self.RIGHT_KEY = False, False
         self.is_jumping, self.on_ground = False, False
+        
         self.gravity, self.friction = 1.5, -0.07
         self.position, self.velocity = pygame.math.Vector2(0, 0), pygame.math.Vector2(0, 0)
+        self.floor = 570
         self.acceleration = pygame.math.Vector2(0, self.gravity)
 
     def draw(self, display):
@@ -36,8 +39,8 @@ class Player(pygame.sprite.Sprite):
         if self.velocity.y > 10:
             self.velocity.y = 10
         self.position.y += self.velocity.y * dt + (self.acceleration.y * 0.5) * (dt * dt)
-        if self.position.y > 600:
-            self.position.y = 600
+        if self.position.y > self.floor:
+            self.position.y = self.floor
             self.velocity.y = 0
             self.on_ground = True
         self.rect.bottom = self.position.y
