@@ -21,7 +21,7 @@ class Azuball:
         self.player_1.rect = self.player_1.image.get_rect()
         
         self.player_2 = Player("chiyo_0.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP))
-        self.player_2.position.x, self.player_2.position.y = 746, DISPLAY_H
+        self.player_2.position.x, self.player_2.position.y = DISPLAY_W-258, DISPLAY_H
         self.player_2.image = pygame.transform.scale(self.player_2.image, (128, 274))
         self.player_2.rect = self.player_2.image.get_rect()
 

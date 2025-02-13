@@ -14,8 +14,9 @@ class Player(pygame.sprite.Sprite):
         
         self.gravity, self.friction = 1.5, -0.07
         self.position, self.velocity = pygame.math.Vector2(0, 0), pygame.math.Vector2(0, 0)
-        self.floor = 570
         self.acceleration = pygame.math.Vector2(0, self.gravity)
+        self.boundaries = 130, 936
+        self.floor = 570
 
     def draw(self, display):
         display.blit(self.image, self.rect)
@@ -34,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity.x += self.acceleration.x * dt
         self.limit_velocity(10)
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
+        self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
         self.rect.x = self.position.x
 
     def vertical_movement(self, dt):
