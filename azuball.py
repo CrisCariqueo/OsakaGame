@@ -19,16 +19,26 @@ class Azuball:
         ## reducing the player size because
         self.player_1.image = pygame.transform.scale(self.player_1.image, (128, 274))
         self.player_1.rect = self.player_1.image.get_rect()
+        self.player_1.boundaries = 130, DISPLAY_W/2
         
         self.player_2 = Player("chiyo_0.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP))
         self.player_2.position.x, self.player_2.position.y = DISPLAY_W-258, DISPLAY_H
         self.player_2.image = pygame.transform.scale(self.player_2.image, (128, 274))
         self.player_2.rect = self.player_2.image.get_rect()
-
+        self.player_2.boundaries = DISPLAY_W/2, DISPLAY_W-130
+        
         ############# LOAD BACKGROUND #############
         background_img = pygame.image.load("resources/sprite/azuball_field-800x600.png").convert()
         self.background = pygame.Surface((800, 600))
         self.background.blit(background_img, (0, 0))
+
+        ############# LOAD SPRITESHEET #############
+        spritesheet = Spritesheet("resources/sprite/azuball_spritesheet.png")
+
+        ############# LOAD VOLLEY ELEMENTS #############
+        net_img = spritesheet.parse_sprite("net.png")  # 10x128
+        net_img = pygame.transform.scale(net_img, (28, 358))
+        self.background.blit(net_img, ((((DISPLAY_W-260)/2) - net_img.get_width()/2) - 5, DISPLAY_H-net_img.get_height()+10))
 
     def play(self):
         ############# MAIN GAME LOOP #############
