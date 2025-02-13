@@ -1,6 +1,7 @@
 import pygame
 from resources.sprite.spritesheet import Spritesheet
 from player import Player
+from ball import Ball
 
 class Azuball:
     def __init__(self):
@@ -39,6 +40,10 @@ class Azuball:
         net_img = spritesheet.parse_sprite("net.png")  # 10x128
         net_img = pygame.transform.scale(net_img, (28, 358))
         self.background.blit(net_img, ((((DISPLAY_W-260)/2) - net_img.get_width()/2) - 5, DISPLAY_H-net_img.get_height()+10))
+        
+        self.ball = Ball()
+        self.ball.position.x, self.ball.position.y = DISPLAY_W/4, 200
+        self.ball.acceleration.y = 0
 
     def play(self):
         ############# MAIN GAME LOOP #############
@@ -51,17 +56,23 @@ class Azuball:
 
                 self.check_player_keys(self.player_1, event)
                 self.check_player_keys(self.player_2, event)
-            
-            ############# UPDATE PLAYER #############
+
+                self.test_ball_physics(event)
+
+            ############# UPDATE PLAYER AND BALL #############
             self.player_1.update(dt)
             self.player_2.update(dt)
-            
+            self.ball.update(dt)
+
             ############# UPDATE WINDOW AND DISPLAY #############
             self.canvas.fill((58, 57, 57))
             self.canvas.blit(self.background, (133, 0))
             self.player_1.draw(self.canvas)
             self.player_2.draw(self.canvas)
-            
+            self.ball.draw(self.canvas)
+
+            self.show_rects()
+
             self.window.blit(self.canvas, (0, 0))
             pygame.display.update()
     
@@ -83,6 +94,23 @@ class Azuball:
                 if player.is_jumping:
                     player.velocity.y *= 0.5 
                     player.is_jumping = False
+
+    def test_ball_physics(self, event: pygame.event.Event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                if self.ball.fell:
+                    self.ball.position.x, self.ball.position.y = 266, 200
+                    self.ball.acceleration.y = 0
+                    self.ball.velocity.x, self.ball.velocity.y = 0, 0
+                    self.ball.fell = False
+                else:
+                    self.ball.acceleration.y = self.ball.gravity
+                    self.ball.velocity.x, self.ball.velocity.y = 10, -20
+
+    def show_rects(self):
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.player_1.rect, 1)
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.player_2.rect, 1)
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.ball.rect, 1)
 
 game = Azuball()
 game.play()
