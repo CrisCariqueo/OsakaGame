@@ -6,6 +6,8 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite(spriteName)
         self.rect = self.image.get_rect()
+        self.collide_rect = pygame.Rect(self.rect.x, self.rect.y, 1, self.rect.height*0.9)
+        self.collide_rect_offset = self.rect.width/2
         
         self.LEFT_KEY, self.RIGHT_KEY, self.UP_KEY = keys
         
@@ -37,6 +39,7 @@ class Player(pygame.sprite.Sprite):
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
         self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
         self.rect.x = self.position.x
+        self.collide_rect.x = self.rect.x + self.collide_rect_offset
 
     def vertical_movement(self, dt):
         self.velocity.y += self.acceleration.y * dt
@@ -48,6 +51,7 @@ class Player(pygame.sprite.Sprite):
             self.velocity.y = 0
             self.on_ground = True
         self.rect.bottom = self.position.y
+        self.collide_rect.bottom = self.rect.bottom
 
     def limit_velocity(self, max_vel):
         self.velocity.x = min(max_vel, max(self.velocity.x, -max_vel))
