@@ -37,7 +37,7 @@ class Ball(pygame.sprite.Sprite):
         # if self.velocity.y > 10:
         #     self.velocity.y = 10
         self.position.y += self.velocity.y * dt + (self.acceleration.y * 0.5) * (dt * dt)
-
+        
         if self.position.y > self.floor:
             self.position.y = self.floor
             self.velocity.x *= 0.7
