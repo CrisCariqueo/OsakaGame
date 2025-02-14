@@ -7,7 +7,8 @@ class Ball(pygame.sprite.Sprite):
         self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite("ballx32.png")
         self.rect = pygame.draw.circle(self.image, (0,0,0), (16, 16), 16, width=1)
 
-        self.gravity, self.friction = 1.5, -0.04
+        self.fell = False
+        self.gravity, self.friction = 1.5, -0.001
         self.position, self.velocity = pygame.math.Vector2(0, 0), pygame.math.Vector2(0, 0)
         self.acceleration = pygame.math.Vector2(0, self.gravity)
         self.boundaries = 130, 936
@@ -22,9 +23,11 @@ class Ball(pygame.sprite.Sprite):
 
     def horizontal_movement(self, dt):
         self.acceleration.x = 0
-        self.acceleration.x += self.velocity.x #* self.friction
+        if self.fell: self.acceleration.x += self.velocity.x * self.friction
+        else:         self.acceleration.x += self.velocity.x
         self.velocity.x += self.acceleration.x * dt
         self.limit_velocity(10)
+        self.bounce_on_wall()
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
         self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
         self.rect.x = self.position.x
@@ -34,7 +37,7 @@ class Ball(pygame.sprite.Sprite):
         # if self.velocity.y > 10:
         #     self.velocity.y = 10
         self.position.y += self.velocity.y * dt + (self.acceleration.y * 0.5) * (dt * dt)
-        self.fell = False
+        
         if self.position.y > self.floor:
             self.position.y = self.floor
             self.velocity.x *= 0.7
@@ -47,3 +50,7 @@ class Ball(pygame.sprite.Sprite):
         self.velocity.x = min(max_vel, max(self.velocity.x, -max_vel))
         # if abs(self.velocity.x) < 0.2:
         #     self.velocity.x = 0
+
+    def bounce_on_wall(self):
+        if self.position.x <= self.boundaries[0] or self.position.x >= self.boundaries[1] - self.rect.width:
+            self.velocity.x = -self.velocity.x
