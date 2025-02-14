@@ -43,7 +43,9 @@ class Azuball:
         ############# LOAD VOLLEY ELEMENTS #############
         net_img = spritesheet.parse_sprite("net.png")  # 10x128
         net_img = pygame.transform.scale(net_img, (28, 358))
-        self.background.blit(net_img, ((((DISPLAY_W-260)/2) - net_img.get_width()/2) - 5, DISPLAY_H-net_img.get_height()+10))
+        net_x, net_y = ((((DISPLAY_W-260)/2) - net_img.get_width()/2) - 5, DISPLAY_H-net_img.get_height()+10)
+        self.background.blit(net_img, (net_x, net_y))
+        self.net_rect = pygame.Rect((net_x + 135, net_y + 3), (net_img.get_width() - 3, 100))
         
         self.ball = Ball()
         self.ball.position.x, self.ball.position.y = DISPLAY_W/4, 200
@@ -66,10 +68,14 @@ class Azuball:
             ############# UPDATE PLAYER AND BALL #############
             self.player_1.update(dt)
             self.player_2.update(dt)
+            
+            if self.ball.rect.left < self.net_rect.right or self.ball.rect.right > self.net_rect.left:
+                self.ball.rect_collision(self.net_rect)
+            
             if self.ball.rect.centerx < 530:
-                self.ball.update(dt, self.player_1)
+                self.ball.update(dt, self.player_1.collide_rect)
             else:
-                self.ball.update(dt, self.player_2)
+                self.ball.update(dt, self.player_2.collide_rect)
 
             ############# UPDATE WINDOW AND DISPLAY #############
             self.canvas.fill((58, 57, 57))
@@ -119,6 +125,7 @@ class Azuball:
         pygame.draw.rect(self.canvas, (0, 0, 0), self.player_1.rect, 1)
         pygame.draw.rect(self.canvas, (0, 0, 0), self.player_2.rect, 1)
         pygame.draw.rect(self.canvas, (0, 0, 0), self.ball.rect, 1)
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.net_rect, 1)
         
         pygame.draw.rect(self.canvas, (250, 0, 0), self.player_1.collide_rect, 1)
         pygame.draw.rect(self.canvas, (250, 0, 0), self.player_2.collide_rect, 1)
