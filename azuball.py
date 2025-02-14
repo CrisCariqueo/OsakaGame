@@ -79,6 +79,7 @@ class Azuball:
             self.ball.draw(self.canvas)
 
             self.show_rects()
+            self.show_kinetic_data(self.ball)
 
             self.window.blit(self.canvas, (0, 0))
             pygame.display.update()
@@ -121,6 +122,20 @@ class Azuball:
         
         pygame.draw.rect(self.canvas, (250, 0, 0), self.player_1.collide_rect, 1)
         pygame.draw.rect(self.canvas, (250, 0, 0), self.player_2.collide_rect, 1)
+    
+    def show_kinetic_data(self, object: Player | Ball):
+        font = pygame.font.Font(None, 36)
+        pos = f"Position: {object.position}"
+        pos_info = font.render(pos, 1, (0, 0, 0))
+        self.canvas.blit(pos_info, (0, 0))
+        
+        vel = f"Velocity: {object.velocity}"
+        vel_info = font.render(vel, 1, (0, 0, 0))
+        self.canvas.blit(vel_info, (0, 30))
+
+        acc = f"Acceleration: {object.acceleration}"
+        acc_info = font.render(acc, 1, (0, 0, 0))
+        self.canvas.blit(acc_info, (0, 60))
 
 game = Azuball()
 game.play()
