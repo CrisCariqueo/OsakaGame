@@ -60,12 +60,12 @@ class Ball(pygame.sprite.Sprite):
         # return self.rect.colliderect(player.collide_rect)
         if self.rect.centery < collide_rect.top:
             cat_v = abs(collide_rect.top - self.rect.centery)
-            cat_h = abs(collide_rect.x - self.rect.centerx)
+            cat_h = abs(collide_rect.centerx - self.rect.centerx)
             hyp = (cat_v**2 + cat_h**2)**0.5
             if hyp <= 36:
                 self.velocity.y = -self.velocity.y
-                self.velocity.x = (self.rect.centerx - collide_rect.x) / 10
+                self.velocity.x = (self.rect.centerx - collide_rect.centerx) / 10
         else:
-            if abs(collide_rect.x - self.rect.centerx) <= 36:
-                self.velocity.x = (self.rect.centerx - collide_rect.x) / 10
+            if abs(collide_rect.centerx - self.rect.centerx) <= 36:
+                self.velocity.x = (self.rect.centerx - collide_rect.centerx) / 10
                 # self.velocity.x = -self.velocity.x
