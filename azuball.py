@@ -66,7 +66,10 @@ class Azuball:
             ############# UPDATE PLAYER AND BALL #############
             self.player_1.update(dt)
             self.player_2.update(dt)
-            self.ball.update(dt)
+            if self.ball.rect.centerx < 530:
+                self.ball.update(dt, self.player_1)
+            else:
+                self.ball.update(dt, self.player_2)
 
             ############# UPDATE WINDOW AND DISPLAY #############
             self.canvas.fill((58, 57, 57))

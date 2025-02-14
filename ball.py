@@ -1,5 +1,6 @@
 import pygame
 from resources.sprite.spritesheet import Spritesheet
+from player import Player
 
 class Ball(pygame.sprite.Sprite):
     def __init__(self):
@@ -17,16 +18,18 @@ class Ball(pygame.sprite.Sprite):
     def draw(self, display):
         display.blit(self.image, self.rect)
     
-    def update(self, dt):
-        self.horizontal_movement(dt)
+    def update(self, dt, player: Player):
+        self.horizontal_movement(dt, player)
         self.vertical_movement(dt)
+        # self.player_collision(player)
 
-    def horizontal_movement(self, dt):
+    def horizontal_movement(self, dt, player):
         self.acceleration.x = 0
         if self.fell: self.acceleration.x += self.velocity.x * self.friction
         else:         self.acceleration.x += self.velocity.x
         self.velocity.x += self.acceleration.x * dt
         self.limit_velocity(10)
+        self.player_collision(player)
         self.bounce_on_wall()
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
         self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
@@ -55,6 +58,16 @@ class Ball(pygame.sprite.Sprite):
         if self.position.x <= self.boundaries[0] or self.position.x >= self.boundaries[1] - self.rect.width:
             self.velocity.x = -self.velocity.x
     
-    def check_player_collision(self, player):
+    def player_collision(self, player: Player):
         # return self.rect.colliderect(player.collide_rect)
-        pass
+        if self.rect.centery < player.collide_rect.top:
+            cat_v = abs(player.collide_rect.top - self.rect.centery)
+            cat_h = abs(player.collide_rect.x - self.rect.centerx)
+            hyp = (cat_v**2 + cat_h**2)**0.5
+            if hyp <= 36:
+                self.velocity.y = -self.velocity.y
+                self.velocity.x = (self.rect.centerx - player.collide_rect.x) / 10
+        else:
+            if abs(player.collide_rect.x - self.rect.centerx) <= 36:
+                self.velocity.x = (self.rect.centerx - player.collide_rect.x) / 10
+                # self.velocity.x = -self.velocity.x
