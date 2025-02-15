@@ -20,16 +20,18 @@ class Azuball:
         ## reducing the player size because
         self.player_1.image = pygame.transform.scale(self.player_1.image, (128, 274))
         self.player_1.rect = self.player_1.image.get_rect()
-        self.player_1.collide_rect_offset = self.player_1.rect.width/2
-        self.player_1.collide_rect.height = self.player_1.rect.height*.82
+        self.player_1.collide_rect_offset = self.player_1.rect.width/2 - 25
+        self.player_1.collide_rect.width = 50
+        self.player_1.collide_rect.height = self.player_1.rect.height*.9
         self.player_1.boundaries = 130, DISPLAY_W/2
         
         self.player_2 = Player("chiyo_4.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP))
         self.player_2.position.x, self.player_2.position.y = DISPLAY_W-258, DISPLAY_H
         self.player_2.image = pygame.transform.scale(self.player_2.image, (128, 274))
         self.player_2.rect = self.player_2.image.get_rect()
-        self.player_2.collide_rect_offset = self.player_2.rect.width/2 + 7
-        self.player_2.collide_rect.height = self.player_2.rect.height*.72
+        self.player_2.collide_rect_offset = self.player_2.rect.width/2 + 7 - 25
+        self.player_2.collide_rect.width = 50
+        self.player_2.collide_rect.height = self.player_2.rect.height*.8
         self.player_2.boundaries = DISPLAY_W/2, DISPLAY_W-130
         
         ############# LOAD BACKGROUND #############
@@ -70,12 +72,12 @@ class Azuball:
             self.player_2.update(dt)
             
             if self.ball.rect.left < self.net_rect.right or self.ball.rect.right > self.net_rect.left:
-                self.ball.rect_collision(self.net_rect)
+                self.ball.handle_collision(self.net_rect)
             
             if self.ball.rect.centerx < 530:
-                self.ball.update(dt, self.player_1.collide_rect)
+                self.ball.update(dt, self.player_1)
             else:
-                self.ball.update(dt, self.player_2.collide_rect)
+                self.ball.update(dt, self.player_2)
 
             ############# UPDATE WINDOW AND DISPLAY #############
             self.canvas.fill((58, 57, 57))
@@ -84,8 +86,9 @@ class Azuball:
             self.player_2.draw(self.canvas)
             self.ball.draw(self.canvas)
 
+            # Debug info, comment/uncomment as needed
             self.show_rects()
-            self.show_kinetic_data(self.ball)
+            # self.show_kinetic_data(self.ball)
 
             self.window.blit(self.canvas, (0, 0))
             pygame.display.update()
@@ -122,13 +125,28 @@ class Azuball:
                     self.ball.velocity.x, self.ball.velocity.y = 10, -20
 
     def show_rects(self):
-        pygame.draw.rect(self.canvas, (0, 0, 0), self.player_1.rect, 1)
-        pygame.draw.rect(self.canvas, (0, 0, 0), self.player_2.rect, 1)
-        pygame.draw.rect(self.canvas, (0, 0, 0), self.ball.rect, 1)
-        pygame.draw.rect(self.canvas, (0, 0, 0), self.net_rect, 1)
+        # players' png box
+        pygame.draw.rect(self.canvas, (255, 255, 255), self.player_1.rect, 1)
+        pygame.draw.rect(self.canvas, (255, 255, 255), self.player_2.rect, 1)
         
-        pygame.draw.rect(self.canvas, (250, 0, 0), self.player_1.collide_rect, 1)
-        pygame.draw.rect(self.canvas, (250, 0, 0), self.player_2.collide_rect, 1)
+        # ball's collision/png box
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.ball.rect, 1)
+
+        # net's collision box
+        x, y = self.net_rect.topleft
+        width = self.net_rect.width
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.net_rect, 1) # Whole
+        pygame.draw.rect(self.canvas, (250, 0, 0), pygame.Rect(x, y, width, width), 1) # Vertical bounce
+        
+        # players' collision box
+        x, y = self.player_1.collide_rect.topleft
+        width = self.player_1.collide_rect.width
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.player_1.collide_rect, 1) # Whole
+        pygame.draw.rect(self.canvas, (250, 0, 0), pygame.Rect(x, y, width, width), 1) # Vertical bounce
+        x, y = self.player_2.collide_rect.topleft
+        width = self.player_2.collide_rect.width
+        pygame.draw.rect(self.canvas, (0, 0, 0), self.player_2.collide_rect, 1) # Whole
+        pygame.draw.rect(self.canvas, (250, 0, 0), pygame.Rect(x, y, width, width), 1) # Vertical bounce
     
     def show_kinetic_data(self, object: Player | Ball):
         font = pygame.font.Font(None, 36)
