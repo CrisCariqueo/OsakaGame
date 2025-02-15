@@ -37,7 +37,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity.x += self.acceleration.x * dt
         self.limit_velocity(10)
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
-        self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
+        self.stay_inside()
         self.rect.x = self.position.x
         self.collide_rect.x = self.rect.x + self.collide_rect_offset
 
@@ -57,6 +57,11 @@ class Player(pygame.sprite.Sprite):
         self.velocity.x = min(max_vel, max(self.velocity.x, -max_vel))
         if abs(self.velocity.x) < 0.2:
             self.velocity.x = 0
+    
+    def stay_inside(self):
+        left_boundary = self.boundaries[0] - self.collide_rect_offset
+        right_boundary = self.boundaries[1] - self.collide_rect.width - self.collide_rect_offset
+        self.position.x = max(left_boundary, min(right_boundary, self.position.x))
 
     def jump(self):
         if self.on_ground:
