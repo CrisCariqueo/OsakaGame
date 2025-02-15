@@ -20,14 +20,14 @@ class Player(pygame.sprite.Sprite):
         self.boundaries = 130, 936
         self.floor = 570
 
-    def draw(self, display):
+    def draw(self, display: pygame.Surface):
         display.blit(self.image, self.rect)
 
-    def update(self, dt):
+    def update(self, dt: float):
         self.horizontal_movement(dt)
         self.vertical_movement(dt)
 
-    def horizontal_movement(self, dt):
+    def horizontal_movement(self, dt: float):
         self.acceleration.x = 0
         if self.LEFT_KEY_PRESSED:
             self.acceleration.x -= 1
@@ -41,7 +41,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.position.x
         self.collide_rect.x = self.rect.x + self.collide_rect_offset
 
-    def vertical_movement(self, dt):
+    def vertical_movement(self, dt: float):
         self.velocity.y += self.acceleration.y * dt
         if self.velocity.y > 10:
             self.velocity.y = 10
@@ -53,7 +53,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.bottom = self.position.y
         self.collide_rect.bottom = self.rect.bottom
 
-    def limit_velocity(self, max_vel):
+    def limit_velocity(self, max_vel: float):
         self.velocity.x = min(max_vel, max(self.velocity.x, -max_vel))
         if abs(self.velocity.x) < 0.2:
             self.velocity.x = 0
