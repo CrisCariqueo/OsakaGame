@@ -15,26 +15,26 @@ class Ball(pygame.sprite.Sprite):
         self.boundaries = 130, 936
         self.floor = 570
     
-    def draw(self, display):
+    def draw(self, display: pygame.Surface):
         display.blit(self.image, self.rect)
     
-    def update(self, dt, collide_rect: pygame.Rect):
-        self.horizontal_movement(dt, collide_rect)
+    def update(self, dt: float, collide_object: Player | pygame.Rect):
+        self.handle_collision(collide_object)
+        self.horizontal_movement(dt)
         self.vertical_movement(dt)
 
-    def horizontal_movement(self, dt, collide_rect: pygame.Rect):
+    def horizontal_movement(self, dt: float):
         self.acceleration.x = 0
         if self.fell: 
             self.acceleration.x += self.velocity.x * self.friction
             self.velocity.x += self.acceleration.x * dt
-        self.rect_collision(collide_rect)
         self.limit_velocity(10)
         self.bounce_on_wall()
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
         self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
         self.rect.x = self.position.x
     
-    def vertical_movement(self, dt):
+    def vertical_movement(self, dt: float):
         self.velocity.y += self.acceleration.y * dt
         # if self.velocity.y > 10:
         #     self.velocity.y = 10
@@ -47,7 +47,7 @@ class Ball(pygame.sprite.Sprite):
         self.rect.bottom = self.position.y
         return self.fell
     
-    def limit_velocity(self, max_vel):
+    def limit_velocity(self, max_vel: float):
         self.velocity.x = min(max_vel, max(self.velocity.x, -max_vel))
         if abs(self.velocity.x) < 0.1:
             self.velocity.x = 0
@@ -56,16 +56,26 @@ class Ball(pygame.sprite.Sprite):
         if self.position.x <= self.boundaries[0] or self.position.x >= self.boundaries[1] - self.rect.width:
             self.velocity.x = -self.velocity.x
     
-    def rect_collision(self, collide_rect: pygame.Rect):
-        # return self.rect.colliderect(player.collide_rect)
-        if self.rect.centery < collide_rect.top:
-            cat_v = abs(collide_rect.top - self.rect.centery)
-            cat_h = abs(collide_rect.centerx - self.rect.centerx)
-            hyp = (cat_v**2 + cat_h**2)**0.5
-            if hyp <= 36:
-                self.velocity.y = -self.velocity.y
-                self.velocity.x = (self.rect.centerx - collide_rect.centerx) / 10
-        else:
-            if abs(collide_rect.centerx - self.rect.centerx) <= 36:
-                self.velocity.x = (self.rect.centerx - collide_rect.centerx) / 10
-                # self.velocity.x = -self.velocity.x
+    def handle_collision(self, object: Player | pygame.Rect):
+        object_rect = object.collide_rect if isinstance(object, Player) else object
+        object_velocity = object.velocity if isinstance(object, Player) else pygame.math.Vector2(0, 0)
+        
+        if self.rect.colliderect(object_rect):
+            # making sure it doesn't clip
+            if self.rect.bottom - 2 <= object_rect.top:
+                self.rect.bottom = object_rect.top
+            else:
+                if abs(self.rect.right - object_rect.left) < abs(object_rect.right - self.rect.left):
+                    self.rect.right = object_rect.left
+                else:
+                    self.rect.left = object_rect.right
+            
+            # doing the actual job
+            if self.rect.bottom < object_rect.top + object_rect.width:
+                self.velocity.y = -abs(self.velocity.y)
+                if abs(object_velocity.y) < -.2:
+                    self.velocity.y += object_velocity.y/2
+
+            self.velocity.x = (self.rect.centerx - object_rect.centerx) / 5
+            if abs(object_velocity.x) > .2:
+                self.velocity.x += object_velocity.x/2
