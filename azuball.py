@@ -15,24 +15,15 @@ class Azuball:
         self.TARGET_FPS = 60
 
         ############# LOAD PLAYER #############
-        self.player_1 = Player("osaka_4.png", (pygame.K_a, pygame.K_d, pygame.K_w))
+        self.player_1 = Player("osaka_4.png", (pygame.K_a, pygame.K_d, pygame.K_w), (128, 274))
         self.player_1.position.x, self.player_1.position.y = 130, DISPLAY_H
-        ## reducing the player size because
-        self.player_1.image = pygame.transform.scale(self.player_1.image, (128, 274))
-        self.player_1.rect = self.player_1.image.get_rect()
-        self.player_1.collide_rect_offset = self.player_1.rect.width/2 - 25
-        self.player_1.collide_rect.width = 50
-        self.player_1.collide_rect.height = self.player_1.rect.height*.9
-        self.player_1.boundaries = 130, DISPLAY_W/2
+        self.player_1.r_wall = DISPLAY_W/2
         
-        self.player_2 = Player("chiyo_4.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP))
+        self.player_2 = Player("chiyo_4.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP), (128, 274))
         self.player_2.position.x, self.player_2.position.y = DISPLAY_W-258, DISPLAY_H
-        self.player_2.image = pygame.transform.scale(self.player_2.image, (128, 274))
-        self.player_2.rect = self.player_2.image.get_rect()
-        self.player_2.collide_rect_offset = self.player_2.rect.width/2 + 7 - 25
-        self.player_2.collide_rect.width = 50
-        self.player_2.collide_rect.height = self.player_2.rect.height*.8
-        self.player_2.boundaries = DISPLAY_W/2, DISPLAY_W-130
+        self.player_2.collide_rect_offset += 7
+        self.player_2.collide_rect.height = self.player_2.rect.height * .8
+        self.player_2.l_wall = DISPLAY_W/2
         
         ############# LOAD BACKGROUND #############
         background_img = pygame.image.load("resources/sprite/azuball_field-800x600.png").convert()

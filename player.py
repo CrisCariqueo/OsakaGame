@@ -2,12 +2,13 @@ import pygame
 from resources.sprite.spritesheet import Spritesheet
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, spriteName: str, keys: tuple[pygame.event.Event]):
+    def __init__(self, spriteName: str, keys: tuple[pygame.event.Event], scale: tuple[int] | None = None):
         pygame.sprite.Sprite.__init__(self)
         self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite(spriteName)
+        if scale:   self.image = pygame.transform.scale(self.image, scale)
         self.rect = self.image.get_rect()
-        self.collide_rect = pygame.Rect(self.rect.x, self.rect.y, 1, self.rect.height*0.9)
-        self.collide_rect_offset = self.rect.width/2
+        self.collide_rect = pygame.Rect(self.rect.x, self.rect.y, 50, self.rect.height * .9)
+        self.collide_rect_offset = self.rect.width/2 -25
         
         self.LEFT_KEY, self.RIGHT_KEY, self.UP_KEY = keys
         
@@ -17,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.gravity, self.friction = 1.5, -0.07
         self.position, self.velocity = pygame.math.Vector2(0, 0), pygame.math.Vector2(0, 0)
         self.acceleration = pygame.math.Vector2(0, self.gravity)
-        self.boundaries = 130, 936
+        self.l_wall, self.r_wall = 130, 936
         self.floor = 570
 
     def draw(self, display: pygame.Surface):
@@ -59,8 +60,8 @@ class Player(pygame.sprite.Sprite):
             self.velocity.x = 0
     
     def stay_inside(self):
-        left_boundary = self.boundaries[0] - self.collide_rect_offset
-        right_boundary = self.boundaries[1] - self.collide_rect.width - self.collide_rect_offset
+        left_boundary = self.l_wall - self.collide_rect_offset
+        right_boundary = self.r_wall - self.collide_rect.width - self.collide_rect_offset
         self.position.x = max(left_boundary, min(right_boundary, self.position.x))
 
     def jump(self):
