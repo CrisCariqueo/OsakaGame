@@ -36,8 +36,6 @@ class Ball(pygame.sprite.Sprite):
     
     def vertical_movement(self, dt: float):
         self.velocity.y += self.acceleration.y * dt
-        # if self.velocity.y > 10:
-        #     self.velocity.y = 10
         self.position.y += self.velocity.y * dt + (self.acceleration.y * 0.5) * (dt * dt)
         
         if self.position.y > self.floor:
@@ -61,21 +59,27 @@ class Ball(pygame.sprite.Sprite):
         object_velocity = object.velocity if isinstance(object, Player) else pygame.math.Vector2(0, 0)
         
         if self.rect.colliderect(object_rect):
-            # making sure it doesn't clip
-            if self.rect.bottom - 2 <= object_rect.top:
-                self.rect.bottom = object_rect.top
-            else:
-                if abs(self.rect.right - object_rect.left) < abs(object_rect.right - self.rect.left):
-                    self.rect.right = object_rect.left
-                else:
-                    self.rect.left = object_rect.right
-            
-            # doing the actual job
-            if self.rect.bottom < object_rect.top + object_rect.width:
-                self.velocity.y = -abs(self.velocity.y)
-                if abs(object_velocity.y) < -.2:
-                    self.velocity.y += object_velocity.y/2
+            self.get_outa_my_box(object_rect)
+            self.bounce(object_rect, object_velocity)
+    
+    def get_outa_my_box(self, object_rect: pygame.Rect):
+        if self.rect.bottom - 2 <= object_rect.top:
+            self.rect.bottom = object_rect.top
+            return
+        
+        if abs(self.rect.right - object_rect.left) < abs(object_rect.right - self.rect.left):
+            self.rect.right = object_rect.left
+        else:
+            self.rect.left = object_rect.right
+    
+    def bounce(self, object_rect: pygame.Rect, object_velocity: pygame.math.Vector2):
+        # bouncy y
+        if self.rect.bottom < object_rect.top + object_rect.width:
+            self.velocity.y = -abs(self.velocity.y)
+            if abs(object_velocity.y) < -.2:
+                self.velocity.y += object_velocity.y/2
 
-            self.velocity.x = (self.rect.centerx - object_rect.centerx) / 5
-            if abs(object_velocity.x) > .2:
-                self.velocity.x += object_velocity.x/2
+        # bouncy x
+        self.velocity.x = (self.rect.centerx - object_rect.centerx) / 5
+        if abs(object_velocity.x) > .2:
+            self.velocity.x += object_velocity.x/2
