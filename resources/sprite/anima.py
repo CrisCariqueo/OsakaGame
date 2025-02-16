@@ -26,6 +26,14 @@ class Anima:
         self.draw_frame(display, name, frame_id, dest)
         return False
     
+    def animate_player(self, player, name: str, time: float):
+        frame_id = self.calculate_frame(name, time)
+        if frame_id >= len(self.animations[name]["frames"]):
+            return True
+        image = self.animations[name]["frames"][frame_id]
+        player.image = image if image.get_size() == player.image.get_size() else pygame.transform.scale(image, player.image.get_size())
+        return False
+    
     def calculate_frame(self, name: str, time: float):
         gap = self.animations[name]["duration"] / len(self.animations[name]["frames"])
         frame = int(time / gap)

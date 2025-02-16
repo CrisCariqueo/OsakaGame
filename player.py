@@ -1,4 +1,5 @@
 import pygame
+from resources.sprite.anima import Anima
 from resources.sprite.spritesheet import Spritesheet
 
 class Player(pygame.sprite.Sprite):
@@ -20,6 +21,8 @@ class Player(pygame.sprite.Sprite):
         self.acceleration = pygame.math.Vector2(0, self.gravity)
         self.l_wall, self.r_wall = 130, 936
         self.floor = 570
+        
+        self.animator = Anima()
 
     def draw(self, display: pygame.Surface):
         display.blit(self.image, self.rect)
@@ -69,3 +72,11 @@ class Player(pygame.sprite.Sprite):
             self.velocity.y = -20
             self.on_ground = False
             self.is_jumping = True
+    
+    def play_animation(self, name: str, time: float, spritesheet: Spritesheet):
+        if self.animator.animate_player(self, name, time):
+            print("Animation ended")
+            image = spritesheet.parse_sprite("osaka_0.png")
+            self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
+            return True
+        return False
