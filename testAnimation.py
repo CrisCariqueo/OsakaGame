@@ -89,7 +89,7 @@ while running:
     player.update(dt)
 
     ############# UPDATE WINDOW AND DISPLAY #############
-    canvas.fill((255, 255, 255))
+    canvas.fill((60, 60, 60))
     
     if anim_play_waltah:
         anim_timer_waltah += dt/60
