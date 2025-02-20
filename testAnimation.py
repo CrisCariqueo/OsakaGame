@@ -22,6 +22,17 @@ def check_player_keys(player: Player, event: pygame.event.Event):
                 player.velocity.y *= 0.5 
                 player.is_jumping = False
 
+def move_ball_emuler(ball_emuler_box: pygame.Rect, event: pygame.event.Event):
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_a:
+            ball_emuler_box.x -= 10
+        elif event.key == pygame.K_d:
+            ball_emuler_box.x += 10
+        elif event.key == pygame.K_w:
+            ball_emuler_box.y -= 10
+        elif event.key == pygame.K_s:
+            ball_emuler_box.y += 10 
+
 ############# LOAD UP BASIC WINDOW #############
 pygame.init()
 DISPLAY_W, DISPLAY_H = 1066, 600
@@ -37,10 +48,7 @@ animator = Anima()
 animator.create_animation(my_spritesheet, "osaka/osaka_waltah/osaka_waltah", "osaka_waltah", 5)
 animator.create_animation(my_spritesheet, "osaka/hapi/hapi", "osaka_hapi", 3)
 
-print(animator.animations)
-
 print("\nOSAKA WALTAH:",
-      animator.animations["osaka_waltah"],
       "\nn frames:", len(animator.animations["osaka_waltah"]["frames"]),
       "\nduration:", animator.animations["osaka_waltah"]["duration"]
 )
@@ -48,7 +56,6 @@ anim_play_waltah = False
 anim_timer_waltah = 0
 
 print("\nOSAKA HAPI:",
-      animator.animations["osaka_hapi"],
       "\nn frames:", len(animator.animations["osaka_hapi"]["frames"]),
       "\nduration:", animator.animations["osaka_hapi"]["duration"]
 )
@@ -61,6 +68,10 @@ player.animator.create_animation(my_spritesheet, "osaka_ball", "throw", .4)
 player_animation = False
 player_animation_timer = 0
 
+ball_emuler = my_spritesheet.parse_sprite("ballx32.png")
+ball_emuler_box = ball_emuler.get_rect()
+ball_emuler_box.x, ball_emuler_box.y = DISPLAY_W-130, 100
+
 while running:
     dt = clock.tick(60) * 0.001 * TARGET_FPS
     ############# CHECK PLAYER INPUT #############
@@ -69,6 +80,7 @@ while running:
             running = False
         
         check_player_keys(player, event)
+        move_ball_emuler(ball_emuler_box, event)
         
         if event.type == pygame.KEYDOWN:
             ############# UPDATE SPRITE IF SPACE IS PRESSED #############
@@ -110,6 +122,7 @@ while running:
             player_animation_timer = 0
     
     player.draw(canvas)
+    canvas.blit(ball_emuler, ball_emuler_box)
     
     window.blit(canvas, (0, 0))
     pygame.display.update()
