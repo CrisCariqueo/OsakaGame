@@ -19,9 +19,10 @@ class Ball(pygame.sprite.Sprite):
         display.blit(self.image, self.rect)
     
     def update(self, dt: float, collide_object: Player | pygame.Rect):
-        self.handle_collision(collide_object)
+        did_bonk = self.handle_collision(collide_object)
         self.horizontal_movement(dt)
         self.vertical_movement(dt)
+        return did_bonk
 
     def horizontal_movement(self, dt: float):
         self.acceleration.x = 0
@@ -60,7 +61,8 @@ class Ball(pygame.sprite.Sprite):
         
         if self.rect.colliderect(object_rect):
             self.get_outa_my_box(object_rect)
-            self.bounce(object_rect, object_velocity)
+            return self.bounce(object_rect, object_velocity)
+        return False
     
     def get_outa_my_box(self, object_rect: pygame.Rect):
         if self.rect.bottom - 2 <= object_rect.top:
@@ -78,8 +80,11 @@ class Ball(pygame.sprite.Sprite):
             self.velocity.y = -abs(self.velocity.y)
             if abs(object_velocity.y) < -.2:
                 self.velocity.y += object_velocity.y/2
+            return True
 
         # bouncy x
         self.velocity.x = (self.rect.centerx - object_rect.centerx) / 5
         if abs(object_velocity.x) > .2:
             self.velocity.x += object_velocity.x/2
+        
+        return False

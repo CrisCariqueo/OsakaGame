@@ -66,9 +66,11 @@ class Azuball:
                 self.ball.handle_collision(self.net_rect)
             
             if self.ball.rect.centerx < 530:
-                self.ball.update(dt, self.player_1)
+                if self.ball.update(dt, self.player_1):
+                    print("bonk") # Debug info
             else:
-                self.ball.update(dt, self.player_2)
+                if self.ball.update(dt, self.player_2):
+                    print("bonk") # Debug info
 
             ############# UPDATE WINDOW AND DISPLAY #############
             self.canvas.fill((58, 57, 57))

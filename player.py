@@ -23,11 +23,18 @@ class Player(pygame.sprite.Sprite):
         self.floor = 570
         
         self.animator = Anima()
+        self.in_animation = False
+        self.sel_animation = False # False = throw, True = prep
+        self.animation_timer = 0
+        self.near_prepped = False
+        self.prepped = False
 
     def draw(self, display: pygame.Surface):
         display.blit(self.image, self.rect)
 
     def update(self, dt: float):
+        if self.in_animation and not self.sel_animation:    return
+        
         self.horizontal_movement(dt)
         self.vertical_movement(dt)
 
@@ -72,11 +79,29 @@ class Player(pygame.sprite.Sprite):
             self.velocity.y = -20
             self.on_ground = False
             self.is_jumping = True
+
+    def stop_movement(self):
+        self.velocity.x = 0
+        self.velocity.y = 0
     
-    def play_animation(self, name: str, time: float, spritesheet: Spritesheet):
+    def play_animation(self, name: str, time: float, spritesheet: Spritesheet, set_default_after: bool = True):
         if self.animator.animate_player(self, name, time):
             print("Animation ended")
-            image = spritesheet.parse_sprite("osaka_0.png")
-            self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
+            if set_default_after:
+                image = spritesheet.parse_sprite("osaka_0.png")
+                self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
             return True
+        return False
+    
+    def handle_ball_prep(self, ball_box: pygame.Rect, time: float, spritesheet: Spritesheet):
+        if self.near_prepped:
+            if abs(ball_box.centerx - self.rect.centerx) <= 50:
+                image = spritesheet.parse_sprite("osaka_4.png")
+                self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
+                print("Prepped")
+                self.prepped = True
+                return True
+        else:
+            if self.play_animation("prep", time, spritesheet, False):
+                self.near_prepped = True
         return False

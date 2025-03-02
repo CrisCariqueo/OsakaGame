@@ -5,19 +5,20 @@ class Anima:
     def __init__(self):
         self.animations: dict[str, dict[str, list[pygame.Surface] | int]] = {}
 
-    def create_animation(self, spritesheet: Spritesheet, route: str, name: str, duration_s: float):
+    def create_animation(self, spritesheet: Spritesheet, route: str, name: str, duration_s: float, take_until: int = 20):
         frames: list[pygame.Surface] = []
         try:
             try:
-                for i in range(20):
+                for i in range(take_until):
                     frames.append(spritesheet.parse_sprite(f"{route}_{i}.png"))
             except:
-                for i in range(20):
+                for i in range(take_until):
                     num = "0" + str(i) if i < 10 else i
                     frames.append(spritesheet.parse_sprite(f"{route}_{num}.png"))
         except:
-            animation = {"frames": frames, "duration": duration_s}
-            self.animations[name] = animation
+            print("Out of animation load by error: ", route)
+        animation = {"frames": frames, "duration": duration_s}
+        self.animations[name] = animation
 
     def play_animation(self, display: pygame.Surface, name: str, time: float, dest: tuple[float, float]):
         frame_id = self.calculate_frame(name, time)
