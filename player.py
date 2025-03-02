@@ -84,6 +84,24 @@ class Player(pygame.sprite.Sprite):
         self.velocity.x = 0
         self.velocity.y = 0
     
+    def handle_animations(self, dt: float, spritesheet: Spritesheet, ball_box: pygame.Rect):
+        self.animation_timer += dt/60
+        if self.sel_animation and not self.prepped: # sel_animation = True: prep
+            if self.animation_timer == dt/60: print("\nPrepping ball")
+            
+            if self.handle_ball_prep(ball_box, self.animation_timer, spritesheet):
+                self.animation_timer = 0
+                self.in_animation = False
+                self.prepped = True
+        
+        elif not self.sel_animation: # sel_animation = False: throw
+            if self.animation_timer == dt/60: print("\nThrowing ball")
+            self.stop_movement()
+            
+            if self.play_animation("throw", self.animation_timer, spritesheet):
+                self.animation_timer = 0
+                self.in_animation = False
+    
     def play_animation(self, name: str, time: float, spritesheet: Spritesheet, set_default_after: bool = True):
         if self.animator.animate_player(self, name, time):
             print("Animation ended")

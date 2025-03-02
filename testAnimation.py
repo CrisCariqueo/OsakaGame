@@ -125,22 +125,7 @@ while running:
             anim_timer_hapi = 0
     
     if player.in_animation:
-        player.animation_timer += dt/60
-        if player.sel_animation and not player.prepped: # sel_animation = True: prep
-            if player.animation_timer == dt/60: print("\nPrepping ball")
-            
-            if player.handle_ball_prep(ball_emuler_box, player.animation_timer, my_spritesheet):
-                player.animation_timer = 0
-                player.in_animation = False
-                player.prepped = True
-        
-        elif not player.sel_animation: # sel_animation = False: throw
-            if player.animation_timer == dt/60: print("\nThrowing ball")
-            player.stop_movement()
-            
-            if player.play_animation("throw", player.animation_timer, my_spritesheet):
-                player.animation_timer = 0
-                player.in_animation = False
+        player.handle_animations(dt, my_spritesheet, ball_emuler_box)
     
     player.draw(canvas)
     canvas.blit(ball_emuler, ball_emuler_box)
