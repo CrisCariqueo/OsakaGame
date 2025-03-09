@@ -22,6 +22,9 @@ class Player(pygame.sprite.Sprite):
         self.l_wall, self.r_wall = 130, 936
         self.floor = 570
         
+        self.throw_pos_offset = pygame.math.Vector2(0, 0)
+        self.throw_vel = pygame.math.Vector2(0, 0)
+        
         self.animator = Anima()
         self.in_animation = False
         self.sel_animation = False # False = throw, True = prep
@@ -33,7 +36,10 @@ class Player(pygame.sprite.Sprite):
         display.blit(self.image, self.rect)
 
     def update(self, dt: float):
-        if self.in_animation and not self.sel_animation:    return
+        self.throw_vel.xy = 0, 0
+        
+        if self.in_animation and not self.sel_animation:
+            self.throw_vel += self.velocity * 0.3
         
         self.horizontal_movement(dt)
         self.vertical_movement(dt)
@@ -80,10 +86,29 @@ class Player(pygame.sprite.Sprite):
             self.on_ground = False
             self.is_jumping = True
 
+    def stop_input(self):
+        self.LEFT_KEY_PRESSED = False
+        self.RIGHT_KEY_PRESSED = False
+        if self.is_jumping:
+            self.velocity.y *= 0.5 
+            self.is_jumping = False
+
     def stop_movement(self):
         self.velocity.x = 0
         self.velocity.y = 0
     
+    def slow_down_movement_x(self):
+        self.velocity.x *= 0.5
+    
+    def get_ball_throw_info(self):
+        # 1146**(1/2) = 33.85262175962151384
+        
+        # velocity = pygame.math.Vector2(10, -20)
+        velocity = pygame.math.Vector2(10, -33.85)
+        if self.collide_rect.centerx > 533: velocity.x = -velocity.x
+
+        return self.rect.topleft + self.throw_pos_offset, velocity + self.throw_vel
+        
     def handle_animations(self, dt: float, spritesheet: Spritesheet, ball_box: pygame.Rect):
         self.animation_timer += dt/60
         if self.sel_animation and not self.prepped: # sel_animation = True: prep
@@ -95,8 +120,10 @@ class Player(pygame.sprite.Sprite):
                 self.prepped = True
         
         elif not self.sel_animation: # sel_animation = False: throw
-            if self.animation_timer == dt/60: print("\nThrowing ball")
-            self.stop_movement()
+            if self.animation_timer == dt/60:
+                print("\nThrowing ball")
+                self.slow_down_movement_x()
+                self.stop_input()
             
             if self.play_animation("throw", self.animation_timer, spritesheet):
                 self.animation_timer = 0

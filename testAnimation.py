@@ -33,6 +33,17 @@ def move_ball_emuler(ball_emuler_box: pygame.Rect, event: pygame.event.Event):
         elif event.key == pygame.K_s:
             ball_emuler_box.y += 10 
 
+def show_boxes():
+    # player's png box
+    pygame.draw.rect(canvas, (255, 255, 255), player.rect, 1)
+    
+    # ball's png box
+    pygame.draw.rect(canvas, (255, 255, 255), ball_emuler_box, 1)
+
+def draw_throw_pos(throw_pos: pygame.math.Vector2):
+    throw_box.topleft = throw_pos.x, throw_pos.y
+    pygame.draw.rect(canvas, (255, 255, 255), throw_box, 1)
+
 ############# LOAD UP BASIC WINDOW #############
 pygame.init()
 DISPLAY_W, DISPLAY_H = 1066, 600
@@ -64,6 +75,7 @@ anim_timer_hapi = 0
 
 player = Player("osaka_0.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP), (128, 274))
 player.position.x, player.position.y = 130, DISPLAY_H
+player.throw_pos_offset.xy = 105, -5
 player.animator.create_animation(my_spritesheet, "osaka", "prep", .3, 4)
 player.animator.create_animation(my_spritesheet, "osaka_ball", "throw", .4)
 player_animation = False
@@ -76,6 +88,10 @@ for i in player.animator.animations:
 ball_emuler = my_spritesheet.parse_sprite("ballx32.png")
 ball_emuler_box = ball_emuler.get_rect()
 ball_emuler_box.x, ball_emuler_box.y = DISPLAY_W-130, 100
+
+rect = pygame.Rect(DISPLAY_W/2-50, 100, 100, 1)
+throw_box = pygame.Rect(0, 0, 32, 32)
+show_throw_pos = False
 
 while running:
     dt = clock.tick(60) * 0.001 * TARGET_FPS
@@ -101,7 +117,10 @@ while running:
                 print("\nReproducing player animation")
                 player.in_animation = True
                 player.sel_animation = False
-                
+            
+            if event.key == pygame.K_t:
+                show_throw_pos = not show_throw_pos
+
     ############# UPDATE PLAYER #############
     player.update(dt)
     
@@ -128,6 +147,13 @@ while running:
         player.handle_animations(dt, my_spritesheet, ball_emuler_box)
     
     player.draw(canvas)
+    show_boxes()
+    
+    if show_throw_pos:
+        throw_pos, throw_vel = player.get_ball_throw_info()
+        draw_throw_pos(throw_pos)
+    
+    pygame.draw.rect(canvas, (255, 255, 255), rect, 1)
     canvas.blit(ball_emuler, ball_emuler_box)
     
     window.blit(canvas, (0, 0))
