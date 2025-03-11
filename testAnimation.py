@@ -2,6 +2,7 @@ import pygame
 from resources.sprite.anima import Anima
 from resources.sprite.spritesheet import Spritesheet
 from player import Player
+from ball import Ball
 
 def check_player_keys(player: Player, event: pygame.event.Event):
     if event.type == pygame.KEYDOWN:
@@ -85,6 +86,8 @@ print("\nanimations loaded:")
 for i in player.animator.animations:
     print(i)
 
+ball = Ball()
+
 ball_emuler = my_spritesheet.parse_sprite("ballx32.png")
 ball_emuler_box = ball_emuler.get_rect()
 ball_emuler_box.x, ball_emuler_box.y = DISPLAY_W-130, 100
@@ -123,6 +126,7 @@ while running:
 
     ############# UPDATE PLAYER #############
     player.update(dt)
+    ball.update(dt, player)
     
     if abs(ball_emuler_box.centerx - player.rect.centerx) < 150:
         player.in_animation = True
@@ -147,6 +151,7 @@ while running:
         player.handle_animations(dt, my_spritesheet, ball_emuler_box)
     
     player.draw(canvas)
+    ball.draw(canvas)
     show_boxes()
     
     if show_throw_pos:
