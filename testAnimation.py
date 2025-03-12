@@ -34,6 +34,10 @@ def move_ball_emuler(ball_emuler_box: pygame.Rect, event: pygame.event.Event):
         elif event.key == pygame.K_s:
             ball_emuler_box.y += 10 
 
+def throw_ball():
+    throw_pos, throw_vel = player.get_ball_throw_info()
+    ball.throw(throw_pos, throw_vel)
+
 def show_boxes():
     # player's png box
     pygame.draw.rect(canvas, (255, 255, 255), player.rect, 1)
@@ -149,6 +153,9 @@ while running:
     
     if player.in_animation:
         player.handle_animations(dt, my_spritesheet, ball_emuler_box)
+        
+        if not player.in_animation and not player.sel_animation:
+            throw_ball()
     
     player.draw(canvas)
     ball.draw(canvas)

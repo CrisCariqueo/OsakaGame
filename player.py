@@ -36,11 +36,6 @@ class Player(pygame.sprite.Sprite):
         display.blit(self.image, self.rect)
 
     def update(self, dt: float):
-        self.throw_vel.xy = 0, 0
-        
-        if self.in_animation and not self.sel_animation:
-            self.throw_vel += self.velocity * 0.3
-        
         self.horizontal_movement(dt)
         self.vertical_movement(dt)
 
@@ -100,11 +95,11 @@ class Player(pygame.sprite.Sprite):
     def slow_down_movement_x(self):
         self.velocity.x *= 0.5
     
+    def set_throw_vel(self):
+        self.throw_vel = self.velocity * 0.3
+    
     def get_ball_throw_info(self):
-        # 1146**(1/2) = 33.85262175962151384
-        
-        # velocity = pygame.math.Vector2(10, -20)
-        velocity = pygame.math.Vector2(10, -33.85)
+        velocity = pygame.math.Vector2(10, -20)
         if self.collide_rect.centerx > 533: velocity.x = -velocity.x
 
         return self.rect.topleft + self.throw_pos_offset, velocity + self.throw_vel
@@ -112,7 +107,7 @@ class Player(pygame.sprite.Sprite):
     def handle_animations(self, dt: float, spritesheet: Spritesheet, ball_box: pygame.Rect):
         self.animation_timer += dt/60
         if self.sel_animation and not self.prepped: # sel_animation = True: prep
-            if self.animation_timer == dt/60: print("\nPrepping ball")
+            if self.animation_timer == dt/60: print("\nPrepping ball") # first frame
             
             if self.handle_ball_prep(ball_box, self.animation_timer, spritesheet):
                 self.animation_timer = 0
@@ -120,10 +115,11 @@ class Player(pygame.sprite.Sprite):
                 self.prepped = True
         
         elif not self.sel_animation: # sel_animation = False: throw
-            if self.animation_timer == dt/60:
+            if self.animation_timer == dt/60: # first frame
                 print("\nThrowing ball")
                 self.slow_down_movement_x()
                 self.stop_input()
+                self.set_throw_vel()
             
             if self.play_animation("throw", self.animation_timer, spritesheet):
                 self.animation_timer = 0

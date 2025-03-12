@@ -9,7 +9,7 @@ class Ball(pygame.sprite.Sprite):
         self.rect = pygame.draw.circle(self.image, (0,0,0), (16, 16), 16, width=1)
 
         self.fell = False
-        self.gravity, self.friction = 1.5, -0.04
+        self.gravity, self.friction = 1, -0.04
         self.position, self.velocity = pygame.math.Vector2(0, 0), pygame.math.Vector2(0, 0)
         self.acceleration = pygame.math.Vector2(0, self.gravity)
         self.boundaries = 130, 936
@@ -88,3 +88,8 @@ class Ball(pygame.sprite.Sprite):
             self.velocity.x += object_velocity.x/2
         
         return False
+
+    def throw(self, throw_pos: pygame.math.Vector2, throw_vel: pygame.math.Vector2):
+        self.fell = False
+        self.position = throw_pos
+        self.velocity = throw_vel
