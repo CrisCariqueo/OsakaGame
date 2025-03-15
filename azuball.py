@@ -14,7 +14,7 @@ class Azuball:
         self.clock = pygame.time.Clock()
         self.TARGET_FPS = 60
         self.round_started = False
-        self.show_throw_box = True
+        self.show_throw_box = False
 
         ############# LOAD SPRITESHEET #############
         self.spritesheet = Spritesheet("resources/sprite/azuball_spritesheet.png")
@@ -95,7 +95,7 @@ class Azuball:
             self.ball.draw(self.canvas)
 
             # Debug info, comment/uncomment as needed
-            self.show_rects()
+            # self.show_rects()
             # self.show_kinetic_data(self.ball)
             if self.show_throw_box:
                 throw_pos_1, throw_vel_1 = self.player_1.get_ball_throw_info()
