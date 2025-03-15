@@ -4,6 +4,8 @@ from resources.sprite.spritesheet import Spritesheet
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, spriteName: str, keys: tuple[pygame.event.Event], scale: tuple[int] | None = None):
+        self.ID = False
+        
         pygame.sprite.Sprite.__init__(self)
         self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite(spriteName)
         if scale:   self.image = pygame.transform.scale(self.image, scale)
@@ -11,7 +13,7 @@ class Player(pygame.sprite.Sprite):
         self.collide_rect = pygame.Rect(self.rect.x, self.rect.y, 50, self.rect.height * .9)
         self.collide_rect_offset = self.rect.width/2 -25
         
-        self.LEFT_KEY, self.RIGHT_KEY, self.UP_KEY = keys
+        self.LEFT_KEY, self.RIGHT_KEY, self.UP_KEY, self.THROW_KEY = keys
         
         self.LEFT_KEY_PRESSED, self.RIGHT_KEY_PRESSED = False, False
         self.is_jumping, self.on_ground = False, False
@@ -107,7 +109,8 @@ class Player(pygame.sprite.Sprite):
     def handle_animations(self, dt: float, spritesheet: Spritesheet, ball_box: pygame.Rect):
         self.animation_timer += dt/60
         if self.sel_animation and not self.prepped: # sel_animation = True: prep
-            if self.animation_timer == dt/60: print("\nPrepping ball") # first frame
+            if self.animation_timer == dt/60: # First frame
+                print(f"\nP{1 if not self.ID else 2} Prepping ball")
             
             if self.handle_ball_prep(ball_box, self.animation_timer, spritesheet):
                 self.animation_timer = 0
@@ -116,7 +119,7 @@ class Player(pygame.sprite.Sprite):
         
         elif not self.sel_animation: # sel_animation = False: throw
             if self.animation_timer == dt/60: # first frame
-                print("\nThrowing ball")
+                print(f"\nP{1 if not self.ID else 2} Throwing ball")
                 self.slow_down_movement_x()
                 self.stop_input()
                 self.set_throw_vel()
@@ -127,9 +130,9 @@ class Player(pygame.sprite.Sprite):
     
     def play_animation(self, name: str, time: float, spritesheet: Spritesheet, set_default_after: bool = True):
         if self.animator.animate_player(self, name, time):
-            print("Animation ended")
+            print(f"P{1 if not self.ID else 2} Animation ended")
             if set_default_after:
-                image = spritesheet.parse_sprite("osaka_0.png")
+                image = spritesheet.parse_sprite("osaka_0.png") if not self.ID else spritesheet.parse_sprite("chiyo_0.png")
                 self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
             return True
         return False
@@ -137,9 +140,9 @@ class Player(pygame.sprite.Sprite):
     def handle_ball_prep(self, ball_box: pygame.Rect, time: float, spritesheet: Spritesheet):
         if self.near_prepped:
             if abs(ball_box.centerx - self.rect.centerx) <= 50:
-                image = spritesheet.parse_sprite("osaka_4.png")
+                image = spritesheet.parse_sprite("osaka_4.png") if not self.ID else spritesheet.parse_sprite("chiyo_4.png")
                 self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
-                print("Prepped")
+                print(f"P{1 if not self.ID else 2} Prepped")
                 self.prepped = True
                 return True
         else:

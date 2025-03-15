@@ -78,7 +78,7 @@ print("\nOSAKA HAPI:",
 anim_play_hapi = False
 anim_timer_hapi = 0
 
-player = Player("osaka_0.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP), (128, 274))
+player = Player("osaka_0.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_e), (128, 274))
 player.position.x, player.position.y = 130, DISPLAY_H
 player.throw_pos_offset.xy = 105, -5
 player.animator.create_animation(my_spritesheet, "osaka", "prep", .3, 4)

@@ -90,6 +90,9 @@ class Ball(pygame.sprite.Sprite):
         return False
 
     def throw(self, throw_pos: pygame.math.Vector2, throw_vel: pygame.math.Vector2):
+        if self.acceleration.y == 0:
+            self.acceleration.y = self.gravity
+
         self.fell = False
         self.position = throw_pos
         self.velocity = throw_vel
