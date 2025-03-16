@@ -57,7 +57,7 @@ class Azuball:
         self.net_rect = pygame.Rect((net_x + 135, net_y + 3), (net_img.get_width() - 3, 100))
         
         self.ball = Ball()
-        self.ball.position.x, self.ball.position.y = self.DISPLAY_W/2, 200
+        self.ball.position.x, self.ball.position.y = -100, 200
         self.ball.acceleration.y = 0
 
     def play(self):
@@ -126,7 +126,7 @@ class Azuball:
                 player.RIGHT_KEY_PRESSED = True
             elif event.key == player.UP_KEY:
                 player.jump()
-            elif event.key == player.THROW_KEY:
+            elif not self.round_started and event.key == player.THROW_KEY:
                 player.in_animation = True
                 player.sel_animation = False
         
@@ -142,9 +142,8 @@ class Azuball:
 
     def throw_ball(self, player: Player):
         throw_pos, throw_vel = player.get_ball_throw_info()
-        if not self.round_started:
-            self.round_started = True
-            self.ball.throw(throw_pos, throw_vel)
+        self.round_started = True
+        self.ball.throw(throw_pos, throw_vel)
 
     def handle_animations(self, player: Player, dt: float, spritesheet: Spritesheet):
         if abs(self.ball.rect.centerx - player.rect.centerx) < 150:
@@ -154,7 +153,7 @@ class Azuball:
         if player.in_animation:
             player.handle_animations(dt, spritesheet, self.ball.rect)
             
-            if not player.in_animation and not player.sel_animation:
+            if not player.sel_animation and not player.in_animation:
                 self.throw_ball(player)
 
     ## UI

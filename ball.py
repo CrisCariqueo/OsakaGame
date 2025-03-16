@@ -32,7 +32,8 @@ class Ball(pygame.sprite.Sprite):
         self.limit_velocity(10)
         self.bounce_on_wall()
         self.position.x += self.velocity.x * dt + (self.acceleration.x * 0.5) * (dt * dt)
-        self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
+        if self.position.x > -50:
+            self.position.x = max(self.boundaries[0], min(self.boundaries[1] - self.rect.width, self.position.x))
         self.rect.x = self.position.x
     
     def vertical_movement(self, dt: float):
