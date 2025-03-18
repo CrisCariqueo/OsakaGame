@@ -28,7 +28,8 @@ class Azuball:
 
         ############# LOAD PLAYER #############
         self.player_1 = Player("osaka_0.png", (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_e), (128, 274))
-        self.player_1.position.x, self.player_1.position.y = 130, self.DISPLAY_H
+        self.player_1.position.xy = 130, self.DISPLAY_H
+        self.player_1.set_default_position(self.player_1.position)
         self.player_1.r_wall = self.DISPLAY_W/2
         self.player_1.throw_pos_offset.xy = 105, -5
         self.player_1.animator.create_animation(self.spritesheet, "osaka", "prep", .3, 4)
@@ -36,7 +37,8 @@ class Azuball:
         
         self.player_2 = Player("chiyo_0.png", (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_MINUS), (128, 274))
         self.player_2.ID = True
-        self.player_2.position.x, self.player_2.position.y = self.DISPLAY_W-258, self.DISPLAY_H
+        self.player_2.position.xy = self.DISPLAY_W-258, self.DISPLAY_H
+        self.player_2.set_default_position(self.player_2.position)
         self.player_2.collide_rect_offset += 7
         self.player_2.collide_rect.height = self.player_2.rect.height * .8
         self.player_2.l_wall = self.DISPLAY_W/2
@@ -74,6 +76,8 @@ class Azuball:
                     self.running = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_t:
                     self.show_throw_box = not self.show_throw_box
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                    self.next_round()
 
                 self.check_player_keys(self.player_1, event)
                 self.check_player_keys(self.player_2, event)
@@ -155,6 +159,33 @@ class Azuball:
             
             if not player.sel_animation and not player.in_animation:
                 self.throw_ball(player)
+
+    ## ROUND
+    def reset_round_values(self):
+        self.round_started = False
+        self.round_timer = 0
+        self.ball.position.xy = -100, 200
+        self.ball.acceleration.xy = 0, 0
+        self.ball.velocity.xy = 0, 0
+        self.ball.fell = False
+        
+        self.reset_player(self.player_1)
+        self.reset_player(self.player_2)
+    
+    def next_round(self):
+        self.reset_round_values()
+        self.round_counter += 1
+    
+    def reset_player(self, player: Player):
+        player.image = player.default_sprite
+        player.position.xy = player.default_position
+        player.velocity.xy = 0, 0
+        
+        player.in_animation = False
+        player.sel_animation = False
+        player.animation_timer = 0
+        player.near_prepped = False
+        player.prepped = False
 
     ## UI
     def draw_timer(self):

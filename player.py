@@ -9,6 +9,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = Spritesheet("resources/sprite/azuball_spritesheet.png").parse_sprite(spriteName)
         if scale:   self.image = pygame.transform.scale(self.image, scale)
+        self.default_sprite = self.image
         self.rect = self.image.get_rect()
         self.collide_rect = pygame.Rect(self.rect.x, self.rect.y, 50, self.rect.height * .9)
         self.collide_rect_offset = self.rect.width/2 -25
@@ -20,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         
         self.gravity, self.friction = 1.5, -0.07
         self.position, self.velocity = pygame.math.Vector2(0, 0), pygame.math.Vector2(0, 0)
+        self.default_position = self.position
         self.acceleration = pygame.math.Vector2(0, self.gravity)
         self.l_wall, self.r_wall = 130, 936
         self.floor = 570
@@ -83,6 +85,9 @@ class Player(pygame.sprite.Sprite):
             self.on_ground = False
             self.is_jumping = True
 
+    def set_default_position(self, position: tuple[int]):
+        self.default_position = pygame.math.Vector2(position)
+
     def stop_input(self):
         self.LEFT_KEY_PRESSED = False
         self.RIGHT_KEY_PRESSED = False
@@ -132,7 +137,7 @@ class Player(pygame.sprite.Sprite):
         if self.animator.animate_player(self, name, time):
             print(f"P{1 if not self.ID else 2} Animation ended")
             if set_default_after:
-                image = spritesheet.parse_sprite("osaka_0.png") if not self.ID else spritesheet.parse_sprite("chiyo_0.png")
+                image = self.default_sprite
                 self.image = image if image.get_size() == self.image.get_size() else pygame.transform.scale(image, self.image.get_size())
             return True
         return False
